@@ -273,26 +273,6 @@
   }
   .map-frame iframe{ width:100%; height:100%; border:0; display:block; }
 
-  .organisers{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 18px;
-  }
-  @media (max-width: 480px){ .organisers{ grid-template-columns: repeat(2, 1fr); } }
-  .organiser{
-    text-align: center;
-  }
-  .avatar{
-    width: 76px; height: 76px;
-    border-radius: 50%;
-    margin: 0 auto 12px;
-    background: linear-gradient(135deg, var(--gold-light), var(--maroon));
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem;
-  }
-  .organiser .name{ font-weight: 600; }
-  .organiser .role{ font-size: 0.85rem; color: var(--ink-soft); }
-
   footer{
     background: var(--maroon-dark);
     color: rgba(255,255,255,0.82);
@@ -493,35 +473,13 @@
     <div class="eyebrow">Organisers</div>
     <h2>Hosted by the Department of Computing, Security and Mathematics</h2>
     <p class="section-lede">
-      S-REPLS 20 is organised by:
+      S-REPLS 20 is organised by
+      <a href="https://pure.royalholloway.ac.uk/en/persons/julien-lange/" target="_blank" rel="noopener">Julien Lange</a>,
+      <a href="https://pure.royalholloway.ac.uk/en/persons/reuben-rowe/" target="_blank" rel="noopener">Reuben Rowe</a>,
+      <a href="https://pure.royalholloway.ac.uk/en/persons/francisco-ferreira-ruiz/" target="_blank" rel="noopener">Francisco Ferreira</a>,
+      <a href="https://pure.royalholloway.ac.uk/en/persons/david-castro-perez/" target="_blank" rel="noopener">David Castro Perez</a>,
+      and Danielle Marshall — all at Royal Holloway, University of London.
     </p>
-    <div class="organisers">
-      <div class="organiser">
-        <div class="avatar">JL</div>
-        <div class="name">Julien Lange</div>
-        <div class="role">Royal Holloway, University of London</div>
-      </div>
-      <div class="organiser">
-        <div class="avatar">RR</div>
-        <div class="name">Reuben Rowe</div>
-        <div class="role">Royal Holloway, University of London</div>
-      </div>
-      <div class="organiser">
-        <div class="avatar">FF</div>
-        <div class="name">Francisco Ferreira</div>
-        <div class="role">Royal Holloway, University of London</div>
-      </div>
-      <div class="organiser">
-        <div class="avatar">DC</div>
-        <div class="name">David Castro Perez</div>
-        <div class="role">Royal Holloway, University of London</div>
-      </div>
-      <div class="organiser">
-        <div class="avatar">DM</div>
-        <div class="name">Danielle Marshall</div>
-        <div class="role">Royal Holloway, University of London</div>
-      </div>
-    </div>
     <p style="margin-top:26px;">
       Questions about the event, talks, or accessibility needs?
       <a href="mailto:julien.lange@rhul.ac.uk?subject=S-REPLS%2020">Get in touch</a>.
