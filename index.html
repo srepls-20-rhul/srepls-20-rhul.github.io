@@ -1,1 +1,559 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S-REPLS 20 — Royal Holloway, University of London</title>
+<meta name="description" content="S-REPLS 20, the 20th South of England Regional Programming Languages Seminar, will be held at Royal Holloway, University of London on 4th November 2026. Volunteer to give a talk or register to attend.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="S-REPLS 20 — Royal Holloway, University of London">
+<meta property="og:description" content="4th November 2026, Queen's Lecture Theatre, Royal Holloway, University of London. Free and informal — talks and attendees welcome.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --maroon: #6d1b2f;
+    --maroon-dark: #4a1220;
+    --gold: #c9a24b;
+    --gold-light: #e6cf94;
+    --cream: #faf6ef;
+    --ink: #241a1d;
+    --ink-soft: #56474b;
+    --line: #e6ddd0;
+    --card: #ffffff;
+    --radius: 14px;
+    --maxw: 980px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{
+    font-family: 'Fraunces', Georgia, serif;
+    line-height: 1.15;
+    margin: 0 0 0.5em;
+    color: var(--maroon-dark);
+    font-weight: 600;
+  }
+  a{ color: var(--maroon); }
+  a:hover{ color: var(--maroon-dark); }
+  img{ max-width:100%; }
+
+  .wrap{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Nav */
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand{
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--maroon-dark);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .brand span{ color: var(--gold); }
+  nav.links{
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  nav.links a{
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+  nav.links a:hover{ color: var(--maroon); }
+
+  /* Hero */
+  .hero{
+    position: relative;
+    padding: 84px 0 64px;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(201,162,75,0.16), transparent 60%),
+      linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset: -40% -10% auto auto;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(109,27,47,0.10), transparent 70%);
+    border-radius: 50%;
+  }
+  .kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--maroon);
+    background: #fff;
+    border: 1px solid var(--gold-light);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    max-width: 14ch;
+  }
+  .hero .lede{
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 14px 0 30px;
+  }
+  .facts{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 34px;
+    margin-bottom: 34px;
+  }
+  .fact{
+    display:flex;
+    align-items:flex-start;
+    gap: 10px;
+  }
+  .fact .ico{
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+  .fact .label{
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .fact .val{
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .cta-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .btn{
+    display:inline-block;
+    padding: 13px 24px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.98rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border: 2px solid transparent;
+  }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn-primary{
+    background: var(--maroon);
+    color: #fff;
+    box-shadow: 0 8px 20px -8px rgba(109,27,47,0.55);
+  }
+  .btn-primary:hover{ background: var(--maroon-dark); color:#fff; }
+  .btn-outline{
+    background: transparent;
+    border-color: var(--maroon);
+    color: var(--maroon);
+  }
+  .btn-outline:hover{ background: var(--maroon); color: #fff; }
+
+  /* Sections */
+  section{ padding: 64px 0; }
+  section.alt{ background: #ffffff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .eyebrow{
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  section h2{ font-size: clamp(1.6rem, 3vw, 2.1rem); }
+  .section-lede{ color: var(--ink-soft); max-width: 68ch; margin-bottom: 30px; }
+
+  .grid-3{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .grid-2{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 760px){
+    .grid-3{ grid-template-columns: 1fr; }
+    .grid-2{ grid-template-columns: 1fr; }
+  }
+
+  .card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px;
+  }
+  .card h3{ font-size: 1.15rem; margin-bottom: 10px; }
+  .card p:last-child{ margin-bottom: 0; color: var(--ink-soft); }
+  .card .card-ico{ font-size: 1.6rem; margin-bottom: 12px; display:block; }
+
+  .callout{
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 34px;
+  }
+  .callout h3{ color: #fff; }
+  .callout p{ color: rgba(255,255,255,0.85); }
+  .callout .btn-primary{ background: var(--gold); color: var(--maroon-dark); box-shadow:none; }
+  .callout .btn-primary:hover{ background: var(--gold-light); }
+
+  table.info{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.info td{
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.info td:first-child{
+    width: 9em;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  table.info tr:last-child td{ border-bottom: none; }
+
+  .map-frame{
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    aspect-ratio: 4/3;
+  }
+  .map-frame iframe{ width:100%; height:100%; border:0; display:block; }
+
+  .organisers{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 18px;
+  }
+  @media (max-width: 480px){ .organisers{ grid-template-columns: repeat(2, 1fr); } }
+  .organiser{
+    text-align: center;
+  }
+  .avatar{
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    background: linear-gradient(135deg, var(--gold-light), var(--maroon));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem;
+  }
+  .organiser .name{ font-weight: 600; }
+  .organiser .role{ font-size: 0.85rem; color: var(--ink-soft); }
+
+  footer{
+    background: var(--maroon-dark);
+    color: rgba(255,255,255,0.82);
+    padding: 44px 0 30px;
+    font-size: 0.9rem;
+  }
+  footer a{ color: #fff; }
+  footer .wrap{
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer .col h4{
+    color: #fff;
+    font-family:'Fraunces',serif;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  footer ul{ list-style:none; padding:0; margin:0; }
+  footer li{ margin-bottom: 6px; }
+  .fine{ margin-top: 30px; text-align:center; font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">S-REPLS <span>20</span></a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#talks">Give a talk</a>
+      <a href="#attend">Attend</a>
+      <a href="#venue">Venue</a>
+      <a href="#organisers">Organisers</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">✦ Twentieth meeting of the series</span>
+    <h1>S-REPLS 20</h1>
+    <p class="lede">
+      The South of England Regional Programming Languages Seminar returns for its
+      twentieth meeting — a free, informal gathering for anyone with a professional
+      or academic interest in the design, semantics, and implementation of
+      programming languages.
+    </p>
+
+    <div class="facts">
+      <div class="fact">
+        <span class="ico">📅</span>
+        <div><div class="label">Date</div><div class="val">Wednesday 4 November 2026</div></div>
+      </div>
+      <div class="fact">
+        <span class="ico">📍</span>
+        <div><div class="label">Venue</div><div class="val">Queen's Lecture Theatre, Royal Holloway</div></div>
+      </div>
+      <div class="fact">
+        <span class="ico">🎟️</span>
+        <div><div class="label">Cost</div><div class="val">Free to attend</div></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#talks">Volunteer to give a talk</a>
+      <a class="btn btn-outline" href="#attend">Register to attend</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">About S-REPLS</div>
+    <h2>Twenty meetings of a South-of-England PL community</h2>
+    <p>
+      <a href="https://srepls.github.io/" target="_blank" rel="noopener">S-REPLS</a>
+      is a regular, informal meeting for anyone in the South of England with a
+      professional interest — academic or commercial — in programming language
+      theory, semantics, and implementation. It moves around the region from host
+      to host and is always free to attend.
+    </p>
+    <p>
+      For our twentieth edition, S-REPLS comes to
+      <strong>Royal Holloway, University of London</strong>, hosted by the
+      Department of Computing, Security and Mathematics, and supported by the
+      EPSRC-funded project <a href="https://gtr.ukri.org/projects?ref=UKRI1247" target="_blank" rel="noopener">INDIMO</a>.
+    </p>
+  </div>
+</section>
+
+<section id="talks" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Call for talks</div>
+    <h2>Call for talks</h2>
+    <p class="section-lede">
+      The programme for S-REPLS 20 has not yet been finalised. As always, talks can
+      cover any aspect of programming language theory, design, or implementation.
+      PhD students and first-time speakers are welcome, as are talks on work in
+      progress.
+    </p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="card-ico">🎤</span>
+        <h3>Any career stage</h3>
+        <p>PhD students, postdocs, academics and industry researchers are all welcome to offer a talk.</p>
+      </div>
+      <div class="card">
+        <span class="card-ico">⏱️</span>
+        <h3>Format</h3>
+        <p>Slots are typically 20–30 minutes including questions; shorter talks can also be accommodated.</p>
+      </div>
+      <div class="card">
+        <span class="card-ico">🧪</span>
+        <h3>Work in progress</h3>
+        <p>Talks need not present finished results — work in progress is a normal part of the programme.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:28px;">
+      <h3>Offer a talk</h3>
+      <p>If you would like to give a talk, please let us know a title and a short abstract via the form below, or by email.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=mmn9LiIZaU62ARCACNKKLsTfqQlEEDFLo6XExF5ZqjdUQkVXTUkyS0NBM0tMUEdYMjlZRFlDT0JWTy4u" target="_blank" rel="noopener">Submit a talk proposal</a>
+        <a class="btn btn-outline" style="border-color:#fff;color:#fff;" href="mailto:julien.lange@rhul.ac.uk?subject=S-REPLS%2020%20talk%20offer">Email us instead</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="attend">
+  <div class="wrap">
+    <div class="eyebrow">Attendance</div>
+    <h2>Attendance</h2>
+    <p class="section-lede">
+      As with every S-REPLS meeting, attendance is free. The full programme will be
+      published here once talks are confirmed — in the meantime, please register
+      your interest in attending so we can plan numbers.
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Register to attend</h3>
+        <p style="margin-bottom:18px;">
+          Registration is quick and helps us plan catering and room capacity. We'll
+          email you closer to the date with the full programme and any joining
+          instructions.
+        </p>
+        <a class="btn btn-primary" href="https://forms.cloud.microsoft/e/0BK1SKuy7t" target="_blank" rel="noopener">Register to attend</a>
+      </div>
+      <div class="card">
+        <h3>Stay in the loop</h3>
+        <p>
+          Prefer to just hear about future meetings? Join the low-traffic
+          S-REPLS mailing list.
+        </p>
+        <p style="margin-bottom:0;">
+          <a href="https://www.jiscmail.ac.uk/srepls" target="_blank" rel="noopener">Subscribe via JISCMail →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="venue" class="alt">
+  <div class="wrap">
+    <div class="eyebrow">Venue</div>
+    <h2>Queen's Lecture Theatre, Royal Holloway</h2>
+    <div class="grid-2">
+      <div>
+        <table class="info">
+          <tr><td>Date</td><td>Wednesday 4 November 2026</td></tr>
+          <tr><td>Room</td><td>Queen's Lecture Theatre, Queen's Building</td></tr>
+          <tr><td>Address</td><td>Royal Holloway, University of London<br>Egham Hill, Egham, Surrey TW20 0EX</td></tr>
+          <tr><td>By train</td><td>Egham station is on the mainline from London Waterloo (~40 minutes), roughly a 15–20 minute walk from campus.</td></tr>
+          <tr><td>By car</td><td>Royal Holloway is just off the M25 (Junction 13); pay-and-display visitor parking is available on campus.</td></tr>
+        </table>
+        <p style="margin-top:18px;color:var(--ink-soft);">
+          Full campus and accessibility information is available on the
+          <a href="https://www.royalholloway.ac.uk/about-us/visit-us/" target="_blank" rel="noopener">Royal Holloway visitor pages</a>.
+        </p>
+      </div>
+      <div class="map-frame">
+        <iframe
+          title="Map of Royal Holloway, University of London"
+          src="https://www.google.com/maps?q=Royal+Holloway+University+of+London+Egham+TW20+0EX&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="organisers">
+  <div class="wrap">
+    <div class="eyebrow">Organisers</div>
+    <h2>Hosted by the Department of Computing, Security and Mathematics</h2>
+    <p class="section-lede">
+      S-REPLS 20 is organised by:
+    </p>
+    <div class="organisers">
+      <div class="organiser">
+        <div class="avatar">JL</div>
+        <div class="name">Julien Lange</div>
+        <div class="role">Royal Holloway, University of London</div>
+      </div>
+      <div class="organiser">
+        <div class="avatar">RR</div>
+        <div class="name">Reuben Rowe</div>
+        <div class="role">Royal Holloway, University of London</div>
+      </div>
+      <div class="organiser">
+        <div class="avatar">FF</div>
+        <div class="name">Francisco Ferreira</div>
+        <div class="role">Royal Holloway, University of London</div>
+      </div>
+      <div class="organiser">
+        <div class="avatar">DC</div>
+        <div class="name">David Castro Perez</div>
+        <div class="role">Royal Holloway, University of London</div>
+      </div>
+      <div class="organiser">
+        <div class="avatar">DM</div>
+        <div class="name">Danielle Marshall</div>
+        <div class="role">Royal Holloway, University of London</div>
+      </div>
+    </div>
+    <p style="margin-top:26px;">
+      Questions about the event, talks, or accessibility needs?
+      <a href="mailto:julien.lange@rhul.ac.uk?subject=S-REPLS%2020">Get in touch</a>.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="col">
+      <h4>S-REPLS 20</h4>
+      <p style="max-width:32ch;color:rgba(255,255,255,0.7);">
+        4 November 2026 · Royal Holloway, University of London
+      </p>
+    </div>
+    <div class="col">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="https://srepls.github.io/" target="_blank" rel="noopener">S-REPLS series homepage</a></li>
+        <li><a href="https://www.jiscmail.ac.uk/srepls" target="_blank" rel="noopener">Mailing list</a></li>
+        <li><a href="https://www.royalholloway.ac.uk/" target="_blank" rel="noopener">Royal Holloway, University of London</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:julien.lange@rhul.ac.uk">julien.lange@rhul.ac.uk</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fine">Organised by the Department of Computing, Security and Mathematics, Royal Holloway, University of London.</div>
+</footer>
+
+</body>
+</html>
